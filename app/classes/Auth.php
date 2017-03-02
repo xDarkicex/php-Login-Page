@@ -2,9 +2,11 @@
 class Auth 
 {
   protected $database;
-  public function __construct(Database $database) 
+  protected $hash;
+  public function __construct(Database $database, Hash $hash) 
   {
     $this->database = $database;
+    $this->hash = $hash;
   }
 
   public function build() {
