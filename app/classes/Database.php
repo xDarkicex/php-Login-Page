@@ -49,4 +49,21 @@ class Database
       $this->statement->execute(['value' => $value]);
       return $this;
     }
+    public function exists($data) 
+    {
+      $field = array_keys($data)[0];
+      return $this->where($field, "=", $data[$field])->count() ? true : false;
+    }
+    public function count()
+    {
+      return $this->statement->rowCount();
+    }
+    public function get() 
+    {
+      return $this->statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function first()
+    {
+      return $this->statement->get()[0];
+    }
 }
