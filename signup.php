@@ -2,6 +2,26 @@
 require_once 'app/init.php';
   if (!empty($_POST))
   {
+    $validator = new Validator($database, $errorHandler);
+    $validation = $validator->check($_POST, [
+      'email' => [
+        'required' => true,
+        'maxlength' => 200,
+        'unique' => 'users',
+        'email' => true
+      ],
+      'username' => [
+        'required' => true,
+        'minlength' => 3,
+        'maxlength' => 20,
+        'unique' => 'users'
+      ],
+      'password' => [
+        'required' => true,
+        'minlength' => 5
+      ]
+    ]);
+
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];

@@ -1,6 +1,18 @@
 <?php
 require_once 'app/init.php';
-
+if(!empty($_POST))
+{
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $signin = $auth->signin([
+      'username' => $username,
+      'password' => $password
+  ]);
+  if($signin)
+  {
+    header('Location: index.php');
+  }
+}
 ?>
 <! doctype html>
 <html>

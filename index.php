@@ -12,7 +12,10 @@ $auth->build();
     <title>Index</title>
   </head>
   <body>
-    <p>You are signed in <a href="signout.php">Sign Out</a></p>
-    <p>You are not signed in <a href="signin.php">Sign In</a> or <a href="signup.php">Sign Up</a></p>
+    <?php if($auth->check()): ?>
+      <p>You are signed in <a href="signout.php">Sign Out</a></p>
+    <?php else: ?>
+      <p>You are not signed in <a href="signin.php">Sign In</a> or <a href="signup.php">Sign Up</a></p>
+    <?php endif; ?>
   </body>
   </html>

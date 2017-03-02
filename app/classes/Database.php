@@ -45,11 +45,11 @@ class Database
     }
     public function where($field, $operator, $value)
     {
-      $this->statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$field} {$operator} :vlue");
+      $this->statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$field} {$operator} :value");
       $this->statement->execute(['value'=>$value]);
       return $this;
     }
-    public function exists($data) 
+    public function exists($data): bool
     {
       $field = array_keys($data)[0];
       return $this->where($field, "=", $data[$field])->count() ? true : false;
@@ -64,6 +64,6 @@ class Database
     }
     public function first()
     {
-      return $this->statement->get()[0];
+      return $this->get()[0];
     }
 }

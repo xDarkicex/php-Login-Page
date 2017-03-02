@@ -3,6 +3,8 @@ class Auth
 {
   protected $database;
   protected $hash;
+  protected $session = 'user';
+  protected $table = 'users';
   public function __construct(Database $database, Hash $hash) 
   {
     $this->database = $database;
@@ -21,13 +23,37 @@ class Auth
       )
     ");
   }
-  public function create($data) 
+  public function create($data): bool
   {
     if(isset($data['password']))
     {
       $data['password'] = $this->hash->make($data['password']);
     }
-    return $this->database->table('users')->insert($data);
+    return $this->database->table($this->table)->insert($data);
+  }
+  public function signin($data): bool
+  {
+    $user = $this->database->table($this->table)->where('username', '=', $data['username']);
+    if($user->count())
+    {
+     $user = $user->first();
+     if($this->hash->verify($data['password'], $user->password))
+     {
+       $this->setAuthSession($user->id);
+       return true;
+     }
+    }
+    return false;
+  }
+
+  public function check(): bool
+  {
+    return isset($_SESSION[$this->session]);
+  }
+
+  protected function setAuthSession($id)
+  {
+    $_SESSION[$this->session] = $id;
   }
 
 }
