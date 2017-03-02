@@ -36,17 +36,17 @@ class Database
     }
     public function insert($data)
     {
-      $key = array_keys($data);
-      $fields = '`'.implode('`, `', $keys).'`';
-      $placeholders = ':'.implode(', :', $keys);
+      $keys = array_keys($data);
+      $fields = '`' . implode('`, `', $keys) . '`';
+      $placeholders = ':' . implode(', :', $keys);
       $sql = "INSERT INTO {$this->table} ({$fields}) VALUES ({$placeholders})";
       $this->statement = $this->pdo->prepare($sql);
       return $this->statement->execute($data);
     }
     public function where($field, $operator, $value)
     {
-      $this->statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$field} {$operator} :value");
-      $this->statement->execute(['value' => $value]);
+      $this->statement = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$field} {$operator} :vlue");
+      $this->statement->execute(['value'=>$value]);
       return $this;
     }
     public function exists($data) 

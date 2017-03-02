@@ -9,7 +9,8 @@ class Auth
     $this->hash = $hash;
   }
 
-  public function build() {
+  public function build() 
+  {
     return $this->database->query("
       CREATE TABLE IF NOT EXISTS users
       (
@@ -20,4 +21,13 @@ class Auth
       )
     ");
   }
+  public function create($data) 
+  {
+    if(isset($data['password']))
+    {
+      $data['password'] = $this->hash->make($data['password']);
+    }
+    return $this->database->table('users')->insert($data);
+  }
+
 }
