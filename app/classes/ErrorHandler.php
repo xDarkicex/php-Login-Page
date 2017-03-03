@@ -18,8 +18,16 @@ class ErrorHandler
   {
     return count($this->all()) ? true : false;
   }
-  public function all()
+  public function has($key)
   {
-    
+    return isset($this->errors[$key]);
+  }
+  public function first($key)
+  {
+    return isset($this->all()[$key][0]) ? $this->all()[$key][0] : false;
+  }
+  public function all($key = null)
+  {
+    return isset($this->errors[$key]) ? $this->errors[$key] : $this->errors;
   }
 }

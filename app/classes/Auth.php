@@ -23,7 +23,7 @@ class Auth
       )
     ");
   }
-  public function create($data): bool
+  public function create($data)
   {
     if(isset($data['password']))
     {

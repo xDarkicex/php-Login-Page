@@ -14,6 +14,7 @@ require_once "{$app}/classes/Auth.php";
 $database = new Database();
 $hash = new Hash;
 $auth = new Auth($database, $hash);
+$errorHandler = new ErrorHandler;
 $database->table('users');
 
 ?>
